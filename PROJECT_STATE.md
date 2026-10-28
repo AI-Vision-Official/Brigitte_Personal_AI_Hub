@@ -55,4 +55,3 @@ When updating this file, keep the update short:
 - **Open:**
 - **Next step:**
 - **Parked:**
-""",
