@@ -1,0 +1,69 @@
+ json.dumps({
+  "schema_version": "1.0",
+  "project": {
+    "name": "Brigitte's Personal AI Hub",
+    "status": "initial_draft",
+    "last_updated": "2026-10-28",
+    "purpose": "Create a portable, provider-independent project context and later a modular personal AI hub under Brigitte's control."
+  },
+  "goals": [
+    "Continue project work across different AI providers, accounts, models, and local tools.",
+    "Keep local project files as the authoritative source of truth.",
+    "Build incrementally without creating unnecessary maintenance work.",
+    "Prefer free or low-cost and locally controllable options where practical.",
+    "Keep original documents and data intact."
+  ],
+  "principles": {
+    "provider_independence": True,
+    "local_source_of_truth": True,
+    "privacy_by_default": True,
+    "human_approval_for_consequential_actions": True,
+    "no_unapproved_installations_or_system_changes": True,
+    "preserve_originals": True,
+    "cost_transparency": True,
+    "small_incremental_steps": True
+  },
+  "working_preferences": {
+    "communication": "Clear, direct, concrete, and step-by-step.",
+    "deliverables": "Prefer complete, usable deliverables over fragmented partial code when code is requested.",
+    "decision_handling": "Separate confirmed facts, assumptions, recommendations, and open questions.",
+    "project_tracking_sections": [
+      "End goal",
+      "Main path",
+      "Current position",
+      "Next step",
+      "Parking lot"
+    ]
+  },
+  "current_state": {
+    "completed": [
+      "Agreed that project continuity must not depend on a single AI, account, or supplier.",
+      "Agreed to use a central local folder as the project source of truth.",
+      "Agreed on six initial project files: 00_PROJECT_START.md, AI_CONTEXT.json, PROJECT_STATE.md, ARCHITECTURE.md, RULES_AND_PERMISSIONS.md, CHANGELOG.md."
+    ],
+    "not_started_or_not_confirmed": [
+      "The local folder has not yet been created by the user.",
+      "No software has been installed as part of this project.",
+      "No existing files have been moved or changed.",
+      "No technical architecture or provider choice has been finalized."
+    ]
+  },
+  "next_step": "Review the six starter files, correct assumptions, and agree on one small implementation step before any installation or system changes.",
+  "constraints": [
+    "Do not assume a provider, model, framework, or operating system integration has been chosen.",
+    "Do not install software, change settings, move or delete files, connect accounts, publish data, or spend money without explicit approval.",
+    "Do not put unnecessary sensitive personal information into project files.",
+    "Do not treat chat history or AI memory as the authoritative project record."
+  ],
+  "open_questions": [
+    "What should the first practical function of the AI hub be?",
+    "Which existing computer and software environment should be treated as the target when implementation begins?",
+    "Should the first version be only a portable documentation structure, a local dashboard, or a small local assistant?"
+  ],
+  "parking_lot": [
+    "Potential use of local models and local tools.",
+    "Potential provider adapters so one AI service can be replaced by another.",
+    "Potential structured logging and automated consistency checks for Markdown and JSON.",
+    "Potential backup and version-control workflow."
+  ]
+}, ensure_ascii=False, indent=2) + "\n",
