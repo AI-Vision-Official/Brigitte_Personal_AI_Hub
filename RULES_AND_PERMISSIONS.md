@@ -79,4 +79,3 @@ Before a risky operation:
 5. Wait for approval.
 
 If something fails, stop, report what happened, and do not conceal or automatically expand the scope of the action.
-""",

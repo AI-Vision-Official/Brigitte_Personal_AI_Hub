@@ -1,4 +1,4 @@
- json.dumps({
+{
   "schema_version": "1.0",
   "project": {
     "name": "Brigitte's Personal AI Hub",
@@ -14,14 +14,14 @@
     "Keep original documents and data intact."
   ],
   "principles": {
-    "provider_independence": True,
-    "local_source_of_truth": True,
-    "privacy_by_default": True,
-    "human_approval_for_consequential_actions": True,
-    "no_unapproved_installations_or_system_changes": True,
-    "preserve_originals": True,
-    "cost_transparency": True,
-    "small_incremental_steps": True
+    "provider_independence": true,
+    "local_source_of_truth": true,
+    "privacy_by_default": true,
+    "human_approval_for_consequential_actions": true,
+    "no_unapproved_installations_or_system_changes": true,
+    "preserve_originals": true,
+    "cost_transparency": true,
+    "small_incremental_steps": true
   },
   "working_preferences": {
     "communication": "Clear, direct, concrete, and step-by-step.",
@@ -66,4 +66,4 @@
     "Potential structured logging and automated consistency checks for Markdown and JSON.",
     "Potential backup and version-control workflow."
   ]
-}, ensure_ascii=False, indent=2) + "\n",
+}

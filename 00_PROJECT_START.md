@@ -70,4 +70,3 @@ Review these six starter files, correct any inaccurate assumptions, and then cho
 - **Proposed:** a recommendation not yet approved.
 - **Open:** a decision or fact still needed.
 - **Parked:** intentionally deferred.
-""",
