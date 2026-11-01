@@ -98,3 +98,52 @@ Complete the documentation synchronization review:
 4. Verify that the documentation set agrees on project status and next actions.
 
 After documentation synchronization, inspect the existing dashboard and local development environment before selecting the first practical implementation milestone.
+---
+
+## 2026-11-01 — Dashboard baseline tests
+
+**Status:** Initial manual browser tests passed.
+
+### Technical validation
+
+- `git diff --check` produced no reported errors.
+- The JavaScript extracted from `dashboard.html` passed Node.js syntax validation using `node --check`.
+
+### Functional tests
+
+The following functions were tested in a separate Chrome Incognito session using temporary test data:
+
+- On Hold persistence after page refresh.
+- Task persistence and completion status.
+- Note persistence.
+- JSON export.
+- JSON import, including retention of the test task, note and On Hold text.
+- Project persistence.
+- Appointment persistence.
+- Recurring item persistence.
+
+All listed tests passed.
+
+### Scope and limitations
+
+These were basic functional tests, not a comprehensive validation of security, recovery, error handling, storage limits or multi-tab behaviour.
+
+No claim is made that all possible data-loss scenarios have been eliminated.
+
+### Next step
+
+Documentation synchronization review, followed by further inspection of the dashboard and local development environment.
+
+## 2026-11-01 - Documentation synchronization completed
+
+- Updated and reviewed `00_PROJECT_START.md`.
+- Updated and verified `RULES_AND_PERMISSIONS.md`.
+- Updated `ARCHITECTURE.md` with dashboard test information and safer migration requirements.
+- Updated `PROJECT_STATE.md` to reflect the current project status and next development phase.
+- Updated `HUB_MANIFEST.json` to reflect the final documentation synchronization.
+- Validated `HUB_MANIFEST.json`, `AI_CONTEXT.json` and `ARCHITECTURE_CONTEXT.json` as valid JSON.
+- Completed baseline dashboard tests using synthetic data in a separate browser session.
+- No software was installed and no system settings were changed.
+- No Git commit or push was performed as part of this update.
+
+**Next step:** Inventory the available local development tools and evaluate storage, backup and offline requirements.

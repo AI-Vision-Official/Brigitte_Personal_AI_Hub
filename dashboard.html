@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="nl">
 <head>
@@ -212,7 +213,7 @@ html {
     <a href="#appointments">Afspraken</a>
     <a href="#recurring">Terugkerende zaken</a>
     <a href="#projects">Projecten</a>
-    <a href="#parking">On hold</a>
+    <a href="#onhold">On hold</a>
     <a href="#backup">Gegevens bewaren</a>
   </nav>
 </aside>
@@ -252,8 +253,7 @@ html {
     <h2>Mijn taken</h2>
     <p class="muted">Kleine stappen zijn genoeg. Uitstellen mag.</p>
     <form id="taskForm" class="actions">
-      <input id="taskInput" type="text"
-        placeholder="Wat wil ik doen?" required>
+      <input id="taskInput" type="text" placeholder="Wat wil ik doen?" required>
       <button class="primary" type="submit">Taak toevoegen</button>
     </form>
     <div id="taskList" style="margin-top:14px"></div>
@@ -264,11 +264,9 @@ html {
     <p class="muted">
       Afspraken overzichtelijk bewaren, met ruimte voor voorbereiding.
     </p>
-
     <form id="appointmentForm">
       <label for="appointmentTitle">Afspraak</label>
-      <input id="appointmentTitle" required
-        placeholder="Bijvoorbeeld: huisarts">
+      <input id="appointmentTitle" required placeholder="Bijvoorbeeld: huisarts">
 
       <div class="grid" style="margin-top:8px">
         <div>
@@ -282,14 +280,12 @@ html {
       </div>
 
       <label for="appointmentPlace">Locatie of voorbereiding (optioneel)</label>
-      <input id="appointmentPlace"
-        placeholder="Adres, vervoer of meenemen">
+      <input id="appointmentPlace" placeholder="Adres, vervoer of meenemen">
 
       <div class="actions" style="margin-top:12px">
         <button class="primary" type="submit">Afspraak toevoegen</button>
       </div>
     </form>
-
     <div id="appointmentList" style="margin-top:16px"></div>
   </section>
 
@@ -297,7 +293,6 @@ html {
     <h2>Mijn projecten</h2>
     <button class="primary" id="addProject" type="button">+ Project</button>
   </div>
-
   <section id="projects" class="grid"></section>
 
   <section class="panel" id="recurring">
@@ -305,11 +300,9 @@ html {
     <p class="muted">
       Praktische zaken die je niet allemaal hoeft te onthouden.
     </p>
-
     <form id="recurringForm">
       <label for="recurringTitle">Wat moet je onthouden?</label>
-      <input id="recurringTitle" required
-        placeholder="Bijvoorbeeld: medicijnen ophalen">
+      <input id="recurringTitle" required placeholder="Bijvoorbeeld: medicijnen ophalen">
 
       <div class="grid" style="margin-top:8px">
         <div>
@@ -333,14 +326,12 @@ html {
       </select>
 
       <label for="recurringNotes">Opmerkingen (optioneel)</label>
-      <textarea id="recurringNotes" rows="2"
-        placeholder="Bijvoorbeeld: bellen voor een afspraak"></textarea>
+      <textarea id="recurringNotes" rows="2" placeholder="Bijvoorbeeld: bellen voor een afspraak"></textarea>
 
       <div class="actions" style="margin-top:12px">
         <button class="primary" type="submit">Bewaren</button>
       </div>
     </form>
-
     <div id="recurringList" style="margin-top:16px"></div>
   </section>
 
@@ -349,24 +340,20 @@ html {
     <p class="muted">
       Alles wat je even wilt onthouden. Je hoeft het niet te ordenen.
     </p>
-
     <form id="noteForm">
       <label for="noteInput">Nieuwe notitie</label>
-      <textarea id="noteInput" rows="3"
-        placeholder="Schrijf hier wat je wilt bewaren..."></textarea>
+      <textarea id="noteInput" rows="3" placeholder="Schrijf hier wat je wilt bewaren..."></textarea>
       <div class="actions" style="margin-top:10px">
         <button class="primary" type="submit">Notitie bewaren</button>
       </div>
     </form>
-
     <div id="noteList" style="margin-top:16px"></div>
   </section>
 
-  <section class="panel" id="parking">
+  <section class="panel" id="onhold">
     <h2>On hold</h2>
     <p class="muted">Ideeën en problemen die niet nu hoeven.</p>
-    <textarea id="parking" rows="5"
-      placeholder="Wat mag wachten?"></textarea>
+    <textarea id="parking" rows="5" placeholder="Wat mag wachten?"></textarea>
   </section>
 
   <section class="panel" id="backup">
@@ -382,8 +369,7 @@ html {
       <button id="importButton" type="button">
         Reservekopie terugzetten
       </button>
-      <input id="importFile" type="file"
-        accept=".json,application/json" hidden>
+      <input id="importFile" type="file" accept=".json,application/json" hidden>
     </div>
     <p id="message" aria-live="polite"></p>
   </section>
@@ -444,20 +430,86 @@ function clone(value) {
   return JSON.parse(JSON.stringify(value));
 }
 
+let dataLoadBlocked = false;
+let recoveryCopyKey = "";
+
 function loadData() {
+  let saved;
+
   try {
-    const saved = localStorage.getItem(STORAGE_KEY);
-
-    if (saved) {
-      const parsed = JSON.parse(saved);
-
-      if (parsed && typeof parsed === "object"
-          && Array.isArray(parsed.projects)) {
-        return { ...clone(initialData), ...parsed };
-      }
-    }
+    saved = localStorage.getItem(STORAGE_KEY);
   } catch (error) {
-    console.warn("Opgeslagen gegevens konden niet worden gelezen.", error);
+    dataLoadBlocked = true;
+    console.error(
+      "Opslag kon niet worden gelezen. Opslaan is geblokkeerd.",
+      error
+    );
+    return clone(initialData);
+  }
+
+  if (saved === null) {
+    return clone(initialData);
+  }
+
+  try {
+    const parsed = JSON.parse(saved);
+
+    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
+      throw new Error("Ongeldige gegevensstructuur.");
+    }
+
+    const arrayFields = [
+      "projects", "tasks", "notes", "appointments", "recurring"
+    ];
+
+    const stringFields = ["daynote", "energy", "parking"];
+
+    const validArrays = arrayFields.every(field =>
+      !Object.prototype.hasOwnProperty.call(parsed, field)
+      || (
+        Array.isArray(parsed[field])
+        && parsed[field].every(item =>
+          item !== null &&
+          typeof item === "object" &&
+          !Array.isArray(item)
+        )
+      )
+    );
+
+    const validStrings = stringFields.every(field =>
+      !Object.prototype.hasOwnProperty.call(parsed, field)
+      || typeof parsed[field] === "string"
+    );
+
+    if (!Array.isArray(parsed.projects) || !validArrays || !validStrings) {
+      throw new Error("Opgeslagen gegevens hebben een ongeldig veld.");
+    }
+
+    return { ...clone(initialData), ...parsed };
+
+  } catch (error) {
+    try {
+      recoveryCopyKey = `${STORAGE_KEY}-recovery-${Date.now()}`;
+      localStorage.setItem(recoveryCopyKey, saved);
+
+      console.warn(
+        "Oude opslag veiliggesteld onder herstelcode:",
+        recoveryCopyKey
+      );
+
+    } catch (recoveryError) {
+      dataLoadBlocked = true;
+
+      console.error(
+        "Herstelkopie maken is mislukt. Opslaan is geblokkeerd.",
+        recoveryError
+      );
+    }
+
+    console.warn(
+      "Opgeslagen gegevens konden niet worden gelezen.",
+      error
+    );
   }
 
   return clone(initialData);
@@ -480,10 +532,20 @@ function normalizeData() {
 normalizeData();
 
 function saveData() {
+  if (dataLoadBlocked) {
+    document.getElementById("message").textContent =
+      "Opslaan geblokkeerd: de bestaande opslag kon niet veilig worden hersteld.";
+    return false;
+  }
+
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+
     document.getElementById("message").textContent =
-      "Opgeslagen in deze browser.";
+      recoveryCopyKey
+        ? "Opgeslagen. De oude gegevens zijn apart veiliggesteld."
+        : "Opgeslagen in deze browser.";
+
     return true;
   } catch (error) {
     document.getElementById("message").textContent =
@@ -1028,7 +1090,6 @@ document.getElementById("dailyQuote").textContent =
 /* Reservekopie exporteren en terugzetten */
 
 document.getElementById("export").addEventListener("click", () => {
-  // Neem alle huidige gegevens mee, inclusief afspraken.
   const backup = JSON.stringify(data, null, 2);
   const blob = new Blob([backup], {
     type: "application/json;charset=utf-8"
@@ -1043,7 +1104,6 @@ document.getElementById("export").addEventListener("click", () => {
   link.click();
   link.remove();
 
-  // Geef de browser tijd om de download te starten.
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 
   document.getElementById("message").textContent =
@@ -1066,9 +1126,36 @@ document.getElementById("importFile").addEventListener(
       if (
         !imported ||
         typeof imported !== "object" ||
+        Array.isArray(imported) ||
         !Array.isArray(imported.projects)
       ) {
         throw new Error("Ongeldige reservekopie");
+      }
+
+      const arrayFields = [
+        "projects", "tasks", "notes", "appointments", "recurring"
+      ];
+      const stringFields = ["daynote", "energy", "parking"];
+
+      const validArrays = arrayFields.every(field =>
+        !Object.prototype.hasOwnProperty.call(imported, field)
+        || (
+          Array.isArray(imported[field])
+          && imported[field].every(item =>
+            item !== null &&
+            typeof item === "object" &&
+            !Array.isArray(item)
+          )
+        )
+      );
+
+      const validStrings = stringFields.every(field =>
+        !Object.prototype.hasOwnProperty.call(imported, field)
+        || typeof imported[field] === "string"
+      );
+
+      if (!validArrays || !validStrings) {
+        throw new Error("Ongeldige gegevensvelden");
       }
 
       if (!confirm(
@@ -1077,12 +1164,22 @@ document.getElementById("importFile").addEventListener(
         return;
       }
 
-      // Behoud standaardwaarden voor ontbrekende velden.
-      data = { ...clone(initialData), ...imported };
-      normalizeData();
+      // Maak eerst een kopie van de huidige opslag.
+      const current = localStorage.getItem(STORAGE_KEY);
 
-      // Sla de herstelde gegevens op en werk alle schermen bij.
-      const saved = saveData();
+      if (current !== null) {
+        const safetyKey = `${STORAGE_KEY}-before-import-${Date.now()}`;
+        localStorage.setItem(safetyKey, current);
+      }
+
+      const importedData = { ...clone(initialData), ...imported };
+      const previousData = data;
+      data = importedData;
+
+      if (!saveData()) {
+        data = previousData;
+        throw new Error("De geïmporteerde gegevens konden niet worden opgeslagen.");
+      }
 
       daynote.value = data.daynote || "";
       energy.value = data.energy || "";
@@ -1094,13 +1191,14 @@ document.getElementById("importFile").addEventListener(
       renderNotes();
       renderRecurring();
 
-      document.getElementById("message").textContent = saved
-        ? "Reservekopie ingelezen en opgeslagen."
-        : "Reservekopie ingelezen, maar opslaan in de browser lukte niet.";
+      document.getElementById("message").textContent =
+        "Reservekopie ingelezen en opgeslagen.";
+
     } catch (error) {
+      console.error("Importeren mislukt.", error);
       alert(
-        "Dit bestand kon niet worden ingelezen. " +
-        "Controleer of het een geldige hub-reservekopie is."
+        "Dit bestand kon niet veilig worden ingelezen. " +
+        "De bestaande gegevens zijn niet bewust vervangen."
       );
     } finally {
       event.target.value = "";

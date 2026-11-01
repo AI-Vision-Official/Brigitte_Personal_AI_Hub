@@ -138,14 +138,15 @@ The Python starter-file generator must not be executed without explicit approval
 
 The development sequence is:
 
-1. Establish and synchronize project documentation.
-2. Inspect the existing dashboard and its functionality.
-3. Inventory the available local development tools.
-4. Evaluate storage and offline requirements.
-5. Identify the first practical use case.
-6. Select the minimum suitable technical solution.
-7. Implement and test one component at a time.
-8. Expand the application while preserving existing functionality.
+1. Complete and synchronize project documentation.
+2. Inventory the available local development tools.
+3. Evaluate storage, backup and offline requirements.
+4. Identify the first practical use case.
+5. Select the minimum suitable technical solution.
+6. Implement and test one component at a time.
+7. Expand the application while preserving existing functionality.
+
+The initial dashboard has already undergone baseline functional testing with synthetic data.
 
 Do not build a large framework before the first practical requirements are established.
 

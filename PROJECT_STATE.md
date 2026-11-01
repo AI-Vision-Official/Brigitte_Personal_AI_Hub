@@ -1,7 +1,7 @@
 # Project State
 
 **Last updated:** 2026-11-01  
-**Status:** Project foundation established — architecture documented, implementation in progress.
+**Status:** Project foundation established â€” architecture documented, implementation in progress.
 
 ## 1. End goal
 
@@ -51,20 +51,22 @@ The following project records have been created or updated:
 
 | File | Current status |
 |---|---|
-| `00_PROJECT_START.md` | Existing |
-| `HUB_MANIFEST.json` | Created |
-| `AI_CONTEXT.json` | Updated and validated |
-| `ARCHITECTURE_CONTEXT.json` | Created and validated |
-| `ARCHITECTURE.md` | Updated |
-| `PROJECT_STATE.md` | Currently being updated |
-| `RULES_AND_PERMISSIONS.md` | Existing; synchronization review pending |
-| `CHANGELOG.md` | Existing; synchronization review pending |
+| `00_PROJECT_START.md` | Updated and reviewed |
+| `HUB_MANIFEST.json` | Created and JSON-validated |
+| `AI_CONTEXT.json` | Updated and JSON-validated |
+| `ARCHITECTURE_CONTEXT.json` | Created and JSON-validated |
+| `ARCHITECTURE.md` | Updated and reviewed |
+| `PROJECT_STATE.md` | Synchronization update in progress |
+| `RULES_AND_PERMISSIONS.md` | Updated and reviewed |
+| `CHANGELOG.md` | Reviewed; synchronization entry pending |
 
-The JSON files validated so far:
+The following JSON files have passed validation:
 
+- `HUB_MANIFEST.json`
 - `AI_CONTEXT.json`
 - `ARCHITECTURE_CONTEXT.json`
 
+The final cross-file consistency check and documentation status update remain pending.
 ### 3.3 Architecture
 
 **Established principles:**
@@ -111,29 +113,25 @@ The JSON files validated so far:
 
 ## 4. Next step
 
-**Step 5 — Complete this project-state update.**
+**Documentation synchronization completed — 2026-11-01.**
 
-After saving this file, proceed with:
+Completed:
 
-**Step 6 — Documentation synchronization review.**
+- Reviewed and synchronized the project documentation.
+- Updated project start instructions, permissions and architecture documentation.
+- Updated PROJECT_STATE.md and CHANGELOG.md.
+- Updated HUB_MANIFEST.json.
+- Validated HUB_MANIFEST.json, AI_CONTEXT.json and ARCHITECTURE_CONTEXT.json.
+- Completed baseline dashboard tests using synthetic data in a separate browser session.
 
-Review the remaining project files:
+**Next development phase:**
 
-1. `00_PROJECT_START.md`
-2. `RULES_AND_PERMISSIONS.md`
-3. `CHANGELOG.md`
-4. `HUB_MANIFEST.json`
-5. `AI_CONTEXT.json`
-6. `ARCHITECTURE_CONTEXT.json`
+1. Inventory the available local development tools.
+2. Evaluate storage, backup and offline requirements.
+3. Identify the first practical implementation use case.
+4. Select the minimum suitable technical solution.
 
-Check consistency, missing information and outdated statements.
-
-After documentation synchronization, inspect the existing dashboard and technical environment.
-
-Do not install software or change system settings during this review.
-
-The first practical implementation use case has not yet been selected.
-
+No software installation or system modification is authorized by this status update.
 ## 5. Parking lot
 
 Items that remain relevant but do not need to be addressed immediately:
@@ -177,3 +175,52 @@ Use this structure for future updates:
 - **Open:** What still needs investigation or a decision?
 - **Next step:** What is the single next action?
 - **Parked:** What is deliberately postponed?
+
+## 8. Dashboard baseline test â€” 2026-11-01
+
+**Status:** Initial browser tests passed.
+
+### Technical checks
+
+- `git diff --check` completed without reported errors.
+- JavaScript extracted from `dashboard.html` passed `node --check` without syntax errors.
+
+### Browser tests
+
+Manual tests were performed in a separate Chrome Incognito session using test data.
+
+| Function | Result |
+|---|---|
+| Open dashboard | Passed |
+| On Hold: save and reload | Passed |
+| Tasks: save and retain completion status | Passed |
+| Notes: save and reload | Passed |
+| JSON export | Passed |
+| JSON import | Passed |
+| Projects: save and reload | Passed |
+| Appointments: save and reload | Passed |
+| Recurring items: save and reload | Passed |
+
+The imported test data retained the test task, test note and On Hold text.
+
+### Test limitations
+
+These were basic manual functional tests. They do not constitute a complete test of:
+
+- Error handling and recovery scenarios.
+- Security and data validation.
+- Simultaneous use in multiple browser tabs.
+- Browser storage limitations or failures.
+- All possible input combinations.
+
+The tests used temporary data in an Incognito session. They do not establish that every possible data-loss scenario has been prevented.
+
+### Current conclusion
+
+The initial dashboard functions and browser-based storage are operational in the tested scenarios.
+
+The dashboard remains an initial implementation, not the completed Personal AI Hub.
+
+### Next step
+
+Complete the documentation synchronization review before expanding dashboard functionality.

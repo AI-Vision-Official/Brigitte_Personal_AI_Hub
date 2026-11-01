@@ -183,7 +183,7 @@ The intended storage strategy may combine:
 
 **Limitation:** `localStorage` is not sufficient as the final storage architecture for a larger application.
 
-A migration to a more suitable storage solution must be planned before substantial application data accumulates.
+Any migration to a more suitable storage solution must include a verified backup, a tested migration procedure and a recovery path before existing application data is changed.
 
 Original source files must remain unchanged unless a separate workflow has been explicitly approved.
 
@@ -306,6 +306,8 @@ Every significant architectural decision should be assessed against these questi
 9. Can the system recover from failure?
 
 ## 10. Current architecture position
+
+The initial dashboard has undergone baseline functional testing using synthetic data in a separate browser session. Task management, notes, appointments, recurring items, projects, On Hold persistence, and JSON import/export were tested successfully. These tests do not constitute a complete security or reliability assessment.
 
 The project has established its target architecture and core operating principles.
 

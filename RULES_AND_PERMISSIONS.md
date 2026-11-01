@@ -197,6 +197,13 @@ No paid dependency, subscription or API usage is authorized without explicit app
 - Keep backups before migrations or bulk changes.
 - Never claim a backup exists unless it has actually been verified.
 - Do not delete temporary or generated files without checking whether they are still needed.
+- Browser-based storage must be treated as user data.
+- Browser storage must not be cleared, reset or migrated without explicit approval.
+- Import and export operations must preserve recoverability of existing data.
+- Browser storage is not a substitute for an independently verified backup.
+- Use separate browser profiles or private sessions for tests involving persistent browser data.
+- Never use real personal data when synthetic test data is sufficient.
+- Verify that test procedures do not modify production data.
 
 ## 9. External input and AI-generated content
 
@@ -243,6 +250,9 @@ If something fails:
 - Do not conceal errors.
 - Do not automatically expand the scope.
 - Wait for further instructions before attempting a risky recovery.
+- Validate syntax before executing modified code where practical.
+- Test changed functionality with non-production data before using it with real data.
+- Distinguish between syntax validation, functional testing and security testing.
 
 ## 12. Uncertainty and stop conditions
 
