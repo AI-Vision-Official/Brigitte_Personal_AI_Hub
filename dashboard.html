@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brigitte — Personal AI Hub</title>
+
+<style>
+:root {
+  color-scheme: light;
+  --bg: #f4f5f7;
+  --panel: #ffffff;
+  --text: #252b35;
+  --muted: #667085;
+  --line: #e1e5eb;
+  --accent: #435b79;
+  --soft: #eaf0f6;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  padding: 24px;
+  background: var(--bg);
+  color: var(--text);
+  font: 16px/1.5 "Segoe UI", Arial, sans-serif;
+}
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 205px;
+  padding: 24px 14px;
+  background: #fff;
+  border-right: 1px solid var(--line);
+  overflow-y: auto;
+  z-index: 10;
+}
+.sidebar h2 {
+  font-size: 17px;
+  margin: 0 0 20px;
+}
+.sidebar a {
+  display: block;
+  padding: 10px 12px;
+  margin-bottom: 5px;
+  border-radius: 7px;
+  color: var(--text);
+  text-decoration: none;
+}
+.sidebar a:hover { background: var(--soft); }
+main {
+  margin-left: 220px;
+  max-width: 1000px;
+}
+header { margin-bottom: 24px; }
+h1 { margin: 0; font-size: 28px; font-weight: 600; }
+h2 { font-size: 19px; margin: 0 0 14px; }
+h3 { font-size: 16px; margin: 0 0 8px; }
+p { margin: 6px 0; }
+.muted { color: var(--muted); }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+.panel, .project {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 20px;
+}
+.panel { margin-bottom: 16px; }
+.project {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.project-top {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 8px;
+}
+input, textarea, select, button {
+  font: inherit;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  padding: 9px 10px;
+  background: white;
+  color: var(--text);
+}
+input, textarea, select { width: 100%; }
+textarea { resize: vertical; min-height: 60px; }
+label {
+  display: block;
+  font-size: 13px;
+  color: var(--muted);
+  margin: 6px 0;
+}
+button {
+  cursor: pointer;
+  background: var(--soft);
+  border-color: transparent;
+}
+button:hover { filter: brightness(.97); }
+button.primary { background: var(--accent); color: white; }
+button.danger { background: #f9e9e9; }
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.status { max-width: 155px; font-size: 13px; }
+.section-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin: 24px 0 12px;
+}
+#message {
+  color: var(--muted);
+  font-size: 13px;
+  min-height: 20px;
+  overflow-wrap: anywhere;
+}
+.rest {
+  background: var(--soft);
+  border-radius: 10px;
+  padding: 14px;
+}
+.daily-quote {
+  background: linear-gradient(135deg, #eaf0f6, #f5eff9);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 24px;
+  margin-bottom: 20px;
+}
+.quote-label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+.daily-quote blockquote {
+  margin: 0;
+  font-size: 21px;
+  line-height: 1.5;
+  font-weight: 500;
+  color: #303c50;
+}
+.quote-footer {
+  margin-top: 12px;
+  font-size: 13px;
+  color: var(--muted);
+}
+.item-card {
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  padding: 14px;
+  margin-top: 10px;
+  overflow-wrap: anywhere;
+}
+.item-card p { white-space: pre-wrap; }
+.item-card .actions { margin-top: 10px; }
+.item-card input[type="checkbox"] { width: auto; }
+footer {
+  color: var(--muted);
+  font-size: 12px;
+  margin: 24px 0 8px;
+}
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 20px;
+}
+@media (max-width: 800px) {
+  body { padding: 12px; }
+  .sidebar {
+    position: static;
+    width: auto;
+    padding: 12px;
+    margin: -12px -12px 20px;
+    border-right: none;
+    border-bottom: 1px solid var(--line);
+  }
+  .sidebar h2 { margin-bottom: 8px; }
+  .sidebar nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  .sidebar a {
+    margin: 0;
+    padding: 7px 10px;
+  }
+  main { margin-left: 0; max-width: 100%; }
+  .panel, .project { padding: 15px; }
+  .daily-quote { padding: 18px; }
+}
+</style>
+</head>
+
+<body>
+<aside class="sidebar">
+  <h2>Mijn Hub</h2>
+  <nav>
+    <a href="#overview">Overzicht</a>
+    <a href="#tasks">Taken</a>
+    <a href="#notes">Notities</a>
+    <a href="#appointments">Afspraken</a>
+    <a href="#recurring">Terugkerende zaken</a>
+    <a href="#projects">Projecten</a>
+    <a href="#parking">On hold</a>
+    <a href="#backup">Gegevens bewaren</a>
+  </nav>
+</aside>
+
+<main>
+  <section class="daily-quote" aria-label="Spreuk van de dag">
+    <div class="quote-label">SPREUK VAN DE DAG</div>
+    <blockquote id="dailyQuote"></blockquote>
+    <div class="quote-footer">Een kleine gedachte voor vandaag</div>
+  </section>
+
+  <header>
+    <p class="muted">PERSOONLIJKE WERKPLEK</p>
+    <h1>Brigitte's AI Hub</h1>
+    <p id="today" class="muted"></p>
+    <p>Overzicht houden, één stap tegelijk. Niet alles hoeft vandaag.</p>
+  </header>
+
+  <section class="panel" id="overview">
+    <h2>Vandaag</h2>
+    <div class="rest">
+      <strong>Mijn uitgangspunt</strong>
+      <p>75% is genoeg. Rust is ook een geldige keuze.</p>
+    </div>
+    <label for="daynote">Wat is vandaag belangrijk?</label>
+    <textarea id="daynote" placeholder="Eén ding is voldoende..."></textarea>
+    <label for="energy">Hoeveel ruimte heb ik vandaag?</label>
+    <select id="energy">
+      <option value="">Nog niet ingevuld</option>
+      <option>Weinig — alleen noodzakelijk</option>
+      <option>Gemiddeld — één kleine stap</option>
+      <option>Ruim — ik heb wat speelruimte</option>
+    </select>
+  </section>
+
+  <section class="panel" id="tasks">
+    <h2>Mijn taken</h2>
+    <p class="muted">Kleine stappen zijn genoeg. Uitstellen mag.</p>
+    <form id="taskForm" class="actions">
+      <input id="taskInput" type="text"
+        placeholder="Wat wil ik doen?" required>
+      <button class="primary" type="submit">Taak toevoegen</button>
+    </form>
+    <div id="taskList" style="margin-top:14px"></div>
+  </section>
+
+  <section class="panel" id="appointments">
+    <h2>Mijn afspraken</h2>
+    <p class="muted">
+      Afspraken overzichtelijk bewaren, met ruimte voor voorbereiding.
+    </p>
+
+    <form id="appointmentForm">
+      <label for="appointmentTitle">Afspraak</label>
+      <input id="appointmentTitle" required
+        placeholder="Bijvoorbeeld: huisarts">
+
+      <div class="grid" style="margin-top:8px">
+        <div>
+          <label for="appointmentDate">Datum</label>
+          <input id="appointmentDate" type="date" required>
+        </div>
+        <div>
+          <label for="appointmentTime">Tijd</label>
+          <input id="appointmentTime" type="time" required>
+        </div>
+      </div>
+
+      <label for="appointmentPlace">Locatie of voorbereiding (optioneel)</label>
+      <input id="appointmentPlace"
+        placeholder="Adres, vervoer of meenemen">
+
+      <div class="actions" style="margin-top:12px">
+        <button class="primary" type="submit">Afspraak toevoegen</button>
+      </div>
+    </form>
+
+    <div id="appointmentList" style="margin-top:16px"></div>
+  </section>
+
+  <div class="section-title">
+    <h2>Mijn projecten</h2>
+    <button class="primary" id="addProject" type="button">+ Project</button>
+  </div>
+
+  <section id="projects" class="grid"></section>
+
+  <section class="panel" id="recurring">
+    <h2>Terugkerende zaken</h2>
+    <p class="muted">
+      Praktische zaken die je niet allemaal hoeft te onthouden.
+    </p>
+
+    <form id="recurringForm">
+      <label for="recurringTitle">Wat moet je onthouden?</label>
+      <input id="recurringTitle" required
+        placeholder="Bijvoorbeeld: medicijnen ophalen">
+
+      <div class="grid" style="margin-top:8px">
+        <div>
+          <label for="recurringLast">Laatst gedaan</label>
+          <input id="recurringLast" type="date">
+        </div>
+        <div>
+          <label for="recurringNext">Volgende keer</label>
+          <input id="recurringNext" type="date">
+        </div>
+      </div>
+
+      <label for="recurringFrequency">Herhaling</label>
+      <select id="recurringFrequency">
+        <option value="none">Eenmalig / zelf plannen</option>
+        <option value="week">Wekelijks</option>
+        <option value="month">Maandelijks</option>
+        <option value="3months">Elke 3 maanden</option>
+        <option value="6months">Elke 6 maanden</option>
+        <option value="year">Jaarlijks</option>
+      </select>
+
+      <label for="recurringNotes">Opmerkingen (optioneel)</label>
+      <textarea id="recurringNotes" rows="2"
+        placeholder="Bijvoorbeeld: bellen voor een afspraak"></textarea>
+
+      <div class="actions" style="margin-top:12px">
+        <button class="primary" type="submit">Bewaren</button>
+      </div>
+    </form>
+
+    <div id="recurringList" style="margin-top:16px"></div>
+  </section>
+
+  <section class="panel" id="notes">
+    <h2>Notities</h2>
+    <p class="muted">
+      Alles wat je even wilt onthouden. Je hoeft het niet te ordenen.
+    </p>
+
+    <form id="noteForm">
+      <label for="noteInput">Nieuwe notitie</label>
+      <textarea id="noteInput" rows="3"
+        placeholder="Schrijf hier wat je wilt bewaren..."></textarea>
+      <div class="actions" style="margin-top:10px">
+        <button class="primary" type="submit">Notitie bewaren</button>
+      </div>
+    </form>
+
+    <div id="noteList" style="margin-top:16px"></div>
+  </section>
+
+  <section class="panel" id="parking">
+    <h2>On hold</h2>
+    <p class="muted">Ideeën en problemen die niet nu hoeven.</p>
+    <textarea id="parking" rows="5"
+      placeholder="Wat mag wachten?"></textarea>
+  </section>
+
+  <section class="panel" id="backup">
+    <h2>Gegevens bewaren</h2>
+    <p class="muted">
+      Je gegevens blijven in deze browser op deze computer.
+      Exporteer af en toe een reservekopie.
+    </p>
+    <div class="actions">
+      <button class="primary" id="export" type="button">
+        Reservekopie downloaden
+      </button>
+      <button id="importButton" type="button">
+        Reservekopie terugzetten
+      </button>
+      <input id="importFile" type="file"
+        accept=".json,application/json" hidden>
+    </div>
+    <p id="message" aria-live="polite"></p>
+  </section>
+
+  <footer>
+    Versie 1 · Lokaal dashboard · Geen automatische acties of externe verbindingen
+  </footer>
+</main>
+
+<script>
+"use strict";
+
+const STORAGE_KEY = "brigitte-personal-ai-hub-v1";
+
+const initialData = {
+  daynote: "",
+  energy: "",
+  parking:
+    "Dubbele lokale/GitHub-structuur verder uitzoeken — geparkeerd.\n" +
+    "GitHub-controle repareren — alleen als dit de voortgang blokkeert.",
+  projects: [
+    {
+      id: "hub",
+      name: "Personal AI Hub",
+      status: "Bezig",
+      goal: "Een eenvoudige, betrouwbare persoonlijke werkplek.",
+      next: "Dit dashboard werkend openen en testen."
+    },
+    {
+      id: "suno",
+      name: "Suno-archief",
+      status: "Gepauzeerd",
+      goal: "Creaties, metadata en bewijs zorgvuldig bewaren.",
+      next: "Geen nieuwe stap totdat er weer ruimte voor is."
+    },
+    {
+      id: "htwp",
+      name: "Heal the World Project",
+      status: "Wacht",
+      goal: "De website en projectcommunicatie verbeteren.",
+      next: "Websitewerk oppakken wanneer dit weer prioriteit heeft."
+    },
+    {
+      id: "vision",
+      name: "AI Vision / Open Signal Desk",
+      status: "Wacht",
+      goal: "Een bruikbaar informatieoverzicht ontwikkelen.",
+      next: "Geparkeerd houden totdat de hub voldoende staat."
+    }
+  ],
+  tasks: [],
+  notes: [],
+  appointments: [],
+  recurring: []
+};
+
+function clone(value) {
+  return JSON.parse(JSON.stringify(value));
+}
+
+function loadData() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+
+    if (saved) {
+      const parsed = JSON.parse(saved);
+
+      if (parsed && typeof parsed === "object"
+          && Array.isArray(parsed.projects)) {
+        return { ...clone(initialData), ...parsed };
+      }
+    }
+  } catch (error) {
+    console.warn("Opgeslagen gegevens konden niet worden gelezen.", error);
+  }
+
+  return clone(initialData);
+}
+
+let data = loadData();
+
+function normalizeData() {
+  if (!Array.isArray(data.projects)) data.projects = [];
+  if (!Array.isArray(data.tasks)) data.tasks = [];
+  if (!Array.isArray(data.notes)) data.notes = [];
+  if (!Array.isArray(data.appointments)) data.appointments = [];
+  if (!Array.isArray(data.recurring)) data.recurring = [];
+
+  if (typeof data.daynote !== "string") data.daynote = "";
+  if (typeof data.energy !== "string") data.energy = "";
+  if (typeof data.parking !== "string") data.parking = "";
+}
+
+normalizeData();
+
+function saveData() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    document.getElementById("message").textContent =
+      "Opgeslagen in deze browser.";
+    return true;
+  } catch (error) {
+    document.getElementById("message").textContent =
+      "Opslaan lukte niet. Download een reservekopie als dat nog mogelijk is.";
+    return false;
+  }
+}
+
+function makeElement(tag, className, text) {
+  const element = document.createElement(tag);
+  if (className) element.className = className;
+  if (text !== undefined) element.textContent = text;
+  return element;
+}
+
+function newId() {
+  return "p-" + Date.now() + "-" +
+    Math.floor(Math.random() * 10000);
+}
+
+function makeField(title, value, onInput, multiline = false) {
+  const wrapper = document.createElement("div");
+  const label = makeElement("label", "", title);
+  const field = document.createElement(multiline ? "textarea" : "input");
+
+  field.value = value || "";
+  field.addEventListener("input", () => onInput(field.value));
+
+  wrapper.append(label, field);
+  return wrapper;
+}
+
+function formatDate(value, includeWeekday = false) {
+  if (!value) return "Niet ingevuld";
+
+  const date = new Date(value + "T12:00:00");
+  if (Number.isNaN(date.getTime())) return value;
+
+  return new Intl.DateTimeFormat("nl-NL", {
+    ...(includeWeekday ? { weekday: "short" } : {}),
+    day: "numeric",
+    month: "long",
+    year: "numeric"
+  }).format(date);
+}
+
+/* Vandaag */
+
+document.getElementById("today").textContent =
+  new Intl.DateTimeFormat("nl-NL", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric"
+  }).format(new Date());
+
+const daynote = document.getElementById("daynote");
+daynote.value = data.daynote || "";
+daynote.addEventListener("input", () => {
+  data.daynote = daynote.value;
+  saveData();
+});
+
+const energy = document.getElementById("energy");
+energy.value = data.energy || "";
+energy.addEventListener("change", () => {
+  data.energy = energy.value;
+  saveData();
+});
+
+const parking = document.getElementById("parking");
+parking.value = data.parking || "";
+parking.addEventListener("input", () => {
+  data.parking = parking.value;
+  saveData();
+});
+
+/* Projecten */
+
+function renderProjects() {
+  const container = document.getElementById("projects");
+  container.replaceChildren();
+
+  data.projects.forEach(project => {
+    const card = makeElement("article", "project");
+    const top = makeElement("div", "project-top");
+
+    top.append(makeElement("h3", "", project.name));
+
+    const status = document.createElement("select");
+    status.className = "status";
+
+    ["Bezig", "Wacht", "Gepauzeerd", "Klaar"].forEach(option => {
+      const item = makeElement("option", "", option);
+      item.value = option;
+      status.append(item);
+    });
+
+    status.value = project.status || "Wacht";
+    status.setAttribute("aria-label", "Projectstatus");
+    status.addEventListener("change", () => {
+      project.status = status.value;
+      saveData();
+    });
+
+    top.append(status);
+    card.append(top);
+
+    card.append(makeField("Doel", project.goal, value => {
+      project.goal = value;
+      saveData();
+    }, true));
+
+    card.append(makeField("Volgende kleine stap", project.next, value => {
+      project.next = value;
+      saveData();
+    }, true));
+
+    const actions = makeElement("div", "actions");
+    const remove = makeElement("button", "danger", "Project verwijderen");
+
+    remove.type = "button";
+    remove.addEventListener("click", () => {
+      if (!confirm("Dit project uit het dashboard verwijderen?")) return;
+
+      data.projects = data.projects.filter(p => p.id !== project.id);
+      saveData();
+      renderProjects();
+    });
+
+    actions.append(remove);
+    card.append(actions);
+    container.append(card);
+  });
+}
+
+document.getElementById("addProject").addEventListener("click", () => {
+  const name = prompt("Naam van het project:");
+  if (!name || !name.trim()) return;
+
+  data.projects.push({
+    id: newId(),
+    name: name.trim(),
+    status: "Wacht",
+    goal: "",
+    next: ""
+  });
+
+  saveData();
+  renderProjects();
+});
+
+/* Taken */
+
+function renderTasks() {
+  const list = document.getElementById("taskList");
+  list.replaceChildren();
+
+  if (data.tasks.length === 0) {
+    list.append(makeElement("p", "muted", "Nog geen taken. Dat is prima."));
+    return;
+  }
+
+  data.tasks.forEach(task => {
+    const row = makeElement("div", "item-card");
+    const line = makeElement("div", "actions");
+    line.style.alignItems = "center";
+
+    const check = document.createElement("input");
+    check.type = "checkbox";
+    check.checked = Boolean(task.done);
+    check.setAttribute("aria-label", "Taak afgerond");
+
+    check.addEventListener("change", () => {
+      task.done = check.checked;
+      saveData();
+      renderTasks();
+    });
+
+    const name = makeElement("span", "", task.text);
+    name.style.flex = "1";
+    name.style.minWidth = "100px";
+
+    if (task.done) name.style.textDecoration = "line-through";
+
+    const later = makeElement("button", "", "Later");
+    later.type = "button";
+    later.title = "Taak onderaan de lijst zetten";
+
+    later.addEventListener("click", () => {
+      data.tasks = data.tasks.filter(t => t.id !== task.id);
+      data.tasks.push(task);
+      saveData();
+      renderTasks();
+    });
+
+    const remove = makeElement("button", "danger", "Verwijderen");
+    remove.type = "button";
+
+    remove.addEventListener("click", () => {
+      data.tasks = data.tasks.filter(t => t.id !== task.id);
+      saveData();
+      renderTasks();
+    });
+
+    line.append(check, name, later, remove);
+    row.append(line);
+    list.append(row);
+  });
+}
+
+document.getElementById("taskForm").addEventListener("submit", event => {
+  event.preventDefault();
+
+  const input = document.getElementById("taskInput");
+  const text = input.value.trim();
+  if (!text) return;
+
+  data.tasks.push({
+    id: newId(),
+    text,
+    done: false
+  });
+
+  saveData();
+  input.value = "";
+  renderTasks();
+});
+
+/* Afspraken */
+
+function renderAppointments() {
+  const list = document.getElementById("appointmentList");
+  list.replaceChildren();
+
+  const sorted = [...data.appointments].sort((a, b) =>
+    ((a.date || "") + (a.time || "")).localeCompare(
+      (b.date || "") + (b.time || "")
+    )
+  );
+
+  if (sorted.length === 0) {
+    list.append(makeElement("p", "muted", "Nog geen afspraken ingevoerd."));
+    return;
+  }
+
+  sorted.forEach(appointment => {
+    const card = makeElement("div", "item-card");
+
+    card.append(makeElement("h3", "", appointment.title));
+    card.append(makeElement(
+      "p", "muted",
+      formatDate(appointment.date, true) + " · " +
+      (appointment.time || "Tijd niet ingevuld")
+    ));
+
+    if (appointment.place) {
+      card.append(makeElement("p", "", appointment.place));
+    }
+
+    const remove = makeElement("button", "danger", "Afspraak verwijderen");
+    remove.type = "button";
+
+    remove.addEventListener("click", () => {
+      if (!confirm("Deze afspraak verwijderen?")) return;
+
+      data.appointments = data.appointments.filter(
+        item => item.id !== appointment.id
+      );
+
+      saveData();
+      renderAppointments();
+    });
+
+    card.append(remove);
+    list.append(card);
+  });
+}
+
+document.getElementById("appointmentForm").addEventListener("submit", event => {
+  event.preventDefault();
+
+  const title = document.getElementById("appointmentTitle").value.trim();
+  const date = document.getElementById("appointmentDate").value;
+  const time = document.getElementById("appointmentTime").value;
+  const place = document.getElementById("appointmentPlace").value.trim();
+
+  if (!title || !date || !time) return;
+
+  data.appointments.push({
+    id: newId(),
+    title,
+    date,
+    time,
+    place
+  });
+
+  saveData();
+  event.target.reset();
+  renderAppointments();
+});
+
+/* Notities */
+
+function renderNotes() {
+  const list = document.getElementById("noteList");
+  list.replaceChildren();
+
+  if (data.notes.length === 0) {
+    list.append(makeElement("p", "muted", "Je notities verschijnen hier."));
+    return;
+  }
+
+  data.notes.forEach(note => {
+    const card = makeElement("div", "item-card");
+    card.append(makeElement("p", "", note.text));
+
+    const remove = makeElement("button", "danger", "Verwijderen");
+    remove.type = "button";
+
+    remove.addEventListener("click", () => {
+      if (!confirm("Deze notitie verwijderen?")) return;
+
+      data.notes = data.notes.filter(item => item.id !== note.id);
+      saveData();
+      renderNotes();
+    });
+
+    card.append(remove);
+    list.append(card);
+  });
+}
+
+document.getElementById("noteForm").addEventListener("submit", event => {
+  event.preventDefault();
+
+  const input = document.getElementById("noteInput");
+  const text = input.value.trim();
+  if (!text) return;
+
+  data.notes.unshift({
+    id: newId(),
+    text
+  });
+
+  saveData();
+  input.value = "";
+  renderNotes();
+});
+
+/* Terugkerende zaken */
+
+const frequencyLabels = {
+  none: "Eenmalig / zelf plannen",
+  week: "Wekelijks",
+  month: "Maandelijks",
+  "3months": "Elke 3 maanden",
+  "6months": "Elke 6 maanden",
+  year: "Jaarlijks"
+};
+
+function nextOccurrence(dateString, frequency) {
+  if (!dateString || frequency === "none") return "";
+
+  const date = new Date(dateString + "T12:00:00");
+
+  if (Number.isNaN(date.getTime())) return "";
+
+  if (frequency === "week") {
+    date.setDate(date.getDate() + 7);
+  } else {
+    const months = {
+      month: 1,
+      "3months": 3,
+      "6months": 6,
+      year: 12
+    }[frequency];
+
+    if (!months) return "";
+
+    const originalDay = date.getDate();
+    date.setDate(1);
+    date.setMonth(date.getMonth() + months);
+
+    const lastDay = new Date(
+      date.getFullYear(),
+      date.getMonth() + 1,
+      0
+    ).getDate();
+
+    date.setDate(Math.min(originalDay, lastDay));
+  }
+
+  return [
+    date.getFullYear(),
+    String(date.getMonth() + 1).padStart(2, "0"),
+    String(date.getDate()).padStart(2, "0")
+  ].join("-");
+}
+
+function renderRecurring() {
+  const list = document.getElementById("recurringList");
+  list.replaceChildren();
+
+  const items = [...data.recurring].sort((a, b) => {
+    if (!a.nextDate) return b.nextDate ? 1 : 0;
+    if (!b.nextDate) return -1;
+    return a.nextDate.localeCompare(b.nextDate);
+  });
+
+  if (items.length === 0) {
+    list.append(makeElement(
+      "p", "muted", "Nog geen terugkerende zaken ingevoerd."
+    ));
+    return;
+  }
+
+  items.forEach(item => {
+    const card = makeElement("div", "item-card");
+
+    card.append(makeElement("h3", "", item.title));
+    card.append(makeElement(
+      "p", "muted", "Laatst gedaan: " + formatDate(item.lastDate)
+    ));
+    card.append(makeElement(
+      "p", "", "Volgende keer: " + formatDate(item.nextDate)
+    ));
+    card.append(makeElement(
+      "p", "muted",
+      "Herhaling: " + (frequencyLabels[item.frequency] || "Zelf plannen")
+    ));
+
+    if (item.notes) {
+      card.append(makeElement("p", "", item.notes));
+    }
+
+    const actions = makeElement("div", "actions");
+
+    const done = makeElement("button", "primary", "Gedaan vandaag");
+    done.type = "button";
+
+    done.addEventListener("click", () => {
+      const today = new Date();
+      const todayString = [
+        today.getFullYear(),
+        String(today.getMonth() + 1).padStart(2, "0"),
+        String(today.getDate()).padStart(2, "0")
+      ].join("-");
+
+      item.lastDate = todayString;
+      item.nextDate = nextOccurrence(todayString, item.frequency);
+
+      saveData();
+      renderRecurring();
+    });
+
+    const remove = makeElement("button", "danger", "Verwijderen");
+    remove.type = "button";
+
+    remove.addEventListener("click", () => {
+      if (!confirm("Deze zaak verwijderen?")) return;
+
+      data.recurring = data.recurring.filter(x => x.id !== item.id);
+      saveData();
+      renderRecurring();
+    });
+
+    actions.append(done, remove);
+    card.append(actions);
+    list.append(card);
+  });
+}
+
+document.getElementById("recurringForm").addEventListener("submit", event => {
+  event.preventDefault();
+
+  const title = document.getElementById("recurringTitle").value.trim();
+  if (!title) return;
+
+  data.recurring.push({
+    id: newId(),
+    title,
+    lastDate: document.getElementById("recurringLast").value,
+    nextDate: document.getElementById("recurringNext").value,
+    frequency: document.getElementById("recurringFrequency").value,
+    notes: document.getElementById("recurringNotes").value.trim()
+  });
+
+  saveData();
+  event.target.reset();
+  renderRecurring();
+});
+
+/* Spreuk van de dag */
+
+const dailyQuotes = [
+  "Je hoeft niet alles vandaag te doen. Elke kleine stap telt.",
+  "Je mag je eigen tempo volgen. Vooruitgang hoeft niet snel te gaan.",
+  "Ook op een rustige dag mag je trots zijn op jezelf.",
+  "Je hoeft je waarde niet te bewijzen door altijd bezig te zijn.",
+  "Er is ruimte om opnieuw te beginnen, zo vaak als nodig is.",
+  "Je toekomst ontstaat stap voor stap, niet allemaal tegelijk.",
+  "Rust is geen verloren tijd. Het geeft ruimte aan wat belangrijk is.",
+  "Je hoeft niet perfect te zijn om iets moois op te bouwen.",
+  "Vandaag mag je kiezen voor wat jou goed doet.",
+  "Kleine lichtpuntjes mogen een groot verschil maken.",
+  "Je mag groeien zonder jezelf voorbij te lopen.",
+  "Niet alles wat kan, hoeft ook vandaag.",
+  "Je hebt ruimte om te ontdekken wat bij jou past.",
+  "Een vriendelijkere gedachte kan een nieuwe richting openen.",
+  "Je hoeft niet alles te overzien om de volgende stap te zetten.",
+  "Er mag ook plezier zijn, zonder dat het ergens toe hoeft te leiden.",
+  "Elke dag biedt nieuwe mogelijkheden, ook als ze klein zijn.",
+  "Je mag bouwen aan een leven dat bij jou past.",
+  "Vandaag is er geen wedstrijd. Alleen jouw eigen weg.",
+  "Je hoeft niet alles alleen uit te zoeken.",
+  "Je mag trots zijn op wat je al hebt opgebouwd.",
+  "Een pauze kan ook onderdeel zijn van vooruitgang.",
+  "Je hoeft alleen de stap te zetten die nu bij je past.",
+  "Er is kracht in zachtheid en ruimte in eenvoud.",
+  "Je mag je plannen aanpassen aan wat je nodig hebt.",
+  "Ook kleine momenten van ontspanning zijn waardevol.",
+  "Je hoeft vandaag niet verder te zijn dan vandaag.",
+  "Er is geen vaste route naar een leven dat goed voelt.",
+  "Je mag iets nieuws proberen zonder meteen alles vast te leggen.",
+  "Geef jezelf dezelfde ruimte die je een ander zou geven.",
+  "Een beetje meer rust mag ook een groot doel zijn."
+];
+
+const now = new Date();
+const dayNumber = Math.floor(
+  new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime()
+  / 86400000
+);
+const quoteIndex =
+  ((dayNumber % dailyQuotes.length) + dailyQuotes.length)
+  % dailyQuotes.length;
+
+document.getElementById("dailyQuote").textContent =
+  dailyQuotes[quoteIndex];
+
+/* Reservekopie exporteren en terugzetten */
+
+document.getElementById("export").addEventListener("click", () => {
+  // Neem alle huidige gegevens mee, inclusief afspraken.
+  const backup = JSON.stringify(data, null, 2);
+  const blob = new Blob([backup], {
+    type: "application/json;charset=utf-8"
+  });
+
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+
+  link.href = url;
+  link.download = "Brigitte_AI_Hub_backup.json";
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+
+  // Geef de browser tijd om de download te starten.
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+
+  document.getElementById("message").textContent =
+    "Download gestart. Controleer je map Downloads.";
+});
+
+document.getElementById("importButton").addEventListener("click", () => {
+  document.getElementById("importFile").click();
+});
+
+document.getElementById("importFile").addEventListener(
+  "change",
+  async event => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    try {
+      const imported = JSON.parse(await file.text());
+
+      if (
+        !imported ||
+        typeof imported !== "object" ||
+        !Array.isArray(imported.projects)
+      ) {
+        throw new Error("Ongeldige reservekopie");
+      }
+
+      if (!confirm(
+        "De huidige dashboardgegevens vervangen door deze reservekopie?"
+      )) {
+        return;
+      }
+
+      // Behoud standaardwaarden voor ontbrekende velden.
+      data = { ...clone(initialData), ...imported };
+      normalizeData();
+
+      // Sla de herstelde gegevens op en werk alle schermen bij.
+      const saved = saveData();
+
+      daynote.value = data.daynote || "";
+      energy.value = data.energy || "";
+      parking.value = data.parking || "";
+
+      renderProjects();
+      renderTasks();
+      renderAppointments();
+      renderNotes();
+      renderRecurring();
+
+      document.getElementById("message").textContent = saved
+        ? "Reservekopie ingelezen en opgeslagen."
+        : "Reservekopie ingelezen, maar opslaan in de browser lukte niet.";
+    } catch (error) {
+      alert(
+        "Dit bestand kon niet worden ingelezen. " +
+        "Controleer of het een geldige hub-reservekopie is."
+      );
+    } finally {
+      event.target.value = "";
+    }
+  }
+);
+
+/* Eerste weergave */
+
+renderProjects();
+renderTasks();
+renderAppointments();
+renderNotes();
+renderRecurring();
+</script>
+</body>
+</html>

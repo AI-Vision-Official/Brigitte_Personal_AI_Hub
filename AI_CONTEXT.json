@@ -1,69 +1,341 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "2.1",
   "project": {
-    "name": "Brigitte's Personal AI Hub",
-    "status": "initial_draft",
-    "last_updated": "2026-10-28",
-    "purpose": "Create a portable, provider-independent project context and later a modular personal AI hub under Brigitte's control."
+    "name": "Brigitte Personal AI Hub",
+    "short_name": "BPAH",
+    "owner": "Brigitte Schrijvers",
+    "organization": "AI Vision",
+    "repository": "AI-Vision-Official/Brigitte_Personal_AI_Hub",
+    "started": "2026-10-28",
+    "last_updated": "2026-11-01",
+    "status": "documentation_alignment",
+    "purpose": "Develop one integrated, modular, offline-first personal AI environment under Brigitte's control."
+  },
+  "vision": {
+    "end_goal": "One central personal AI Hub that combines daily life, projects, knowledge, wellbeing and intelligent automation.",
+    "primary_interface": "One integrated dashboard and application.",
+    "deployment": "Local computer with offline-first operation.",
+    "independence": [
+      "AI provider independent",
+      "AI model independent",
+      "Account independent",
+      "Subscription independent",
+      "Replaceable external services"
+    ]
   },
   "goals": [
-    "Continue project work across different AI providers, accounts, models, and local tools.",
-    "Keep local project files as the authoritative source of truth.",
-    "Build incrementally without creating unnecessary maintenance work.",
-    "Prefer free or low-cost and locally controllable options where practical.",
-    "Keep original documents and data intact."
+    "Create one integrated personal AI environment.",
+    "Provide a calm central dashboard for daily use.",
+    "Make essential functionality available without internet access.",
+    "Keep local files and data under the user's control.",
+    "Integrate multiple AI providers and local models where useful.",
+    "Organize knowledge, documents, projects and certificates.",
+    "Support planning, appointments and daily administration.",
+    "Support creative work, writing and community initiatives.",
+    "Include health and wellbeing as an equal functional domain.",
+    "Reduce repetitive work through controlled automation.",
+    "Maintain continuity between different AI systems."
   ],
   "principles": {
+    "offline_first": true,
+    "local_first": true,
     "provider_independence": true,
-    "local_source_of_truth": true,
-    "privacy_by_default": true,
+    "model_independence": true,
+    "privacy_by_design": true,
+    "human_control": true,
     "human_approval_for_consequential_actions": true,
-    "no_unapproved_installations_or_system_changes": true,
-    "preserve_originals": true,
+    "preserve_original_files": true,
+    "recoverable_data": true,
+    "open_source_preferred": true,
     "cost_transparency": true,
-    "small_incremental_steps": true
+    "modular_architecture": true,
+    "incremental_development": true,
+    "accessibility_and_simplicity": true
   },
   "working_preferences": {
-    "communication": "Clear, direct, concrete, and step-by-step.",
-    "deliverables": "Prefer complete, usable deliverables over fragmented partial code when code is requested.",
-    "decision_handling": "Separate confirmed facts, assumptions, recommendations, and open questions.",
+    "communication": "Clear, direct, factual and step-by-step.",
+    "instructions": "Provide concrete instructions and complete deliverables.",
+    "code": "Prefer complete, usable implementations rather than fragmented code.",
+    "decision_handling": "Clearly distinguish confirmed decisions, proposals, assumptions and open questions.",
     "project_tracking_sections": [
       "End goal",
       "Main path",
       "Current position",
       "Next step",
       "Parking lot"
+    ],
+    "avoid": [
+      "Unnecessary complexity",
+      "Unnecessary maintenance",
+      "Unapproved changes",
+      "Unnecessary sensitive personal information",
+      "Duplicating existing functionality",
+      "Presenting planned functionality as implemented"
     ]
   },
   "current_state": {
     "completed": [
-      "Agreed that project continuity must not depend on a single AI, account, or supplier.",
-      "Agreed to use a central local folder as the project source of truth.",
-      "Agreed on six initial project files: 00_PROJECT_START.md, AI_CONTEXT.json, PROJECT_STATE.md, ARCHITECTURE.md, RULES_AND_PERMISSIONS.md, CHANGELOG.md."
+      "Created the local project folder.",
+      "Created the original documentation files.",
+      "Connected the project to its GitHub repository.",
+      "Created an initial dashboard in dashboard.html.",
+      "Created Brigitte_Personal_AI_Hub.py as a starter-file generator.",
+      "Reviewed the original project documentation.",
+      "Established the integrated local-first and offline-first architecture direction.",
+      "Created HUB_MANIFEST.json and validated it using PowerShell ConvertFrom-Json.",
+      "Updated AI_CONTEXT.json and validated its previous version.",
+      "Created ARCHITECTURE_CONTEXT.json and validated it using PowerShell ConvertFrom-Json.",
+      "Updated ARCHITECTURE.md.",
+      "Updated PROJECT_STATE.md.",
+      "Updated 00_PROJECT_START.md.",
+      "Prepared updated versions of RULES_AND_PERMISSIONS.md and CHANGELOG.md."
     ],
-    "not_started_or_not_confirmed": [
-      "The local folder has not yet been created by the user.",
-      "No software has been installed as part of this project.",
-      "No existing files have been moved or changed.",
-      "No technical architecture or provider choice has been finalized."
+    "existing_application": {
+      "dashboard": "dashboard.html",
+      "generator": "Brigitte_Personal_AI_Hub.py",
+      "dashboard_storage": "localStorage",
+      "application_status": "Initial implementation foundation",
+      "generator_execution": "Not authorized; do not execute without explicit approval."
+    },
+    "documentation": {
+      "phase": "Documentation alignment",
+      "manifest": "Updated and validated",
+      "ai_context": "Being updated; validation required",
+      "architecture_context": "Created and validated",
+      "architecture": "Updated",
+      "project_state": "Updated",
+      "project_start": "Updated",
+      "rules_and_permissions": "Updated version prepared; save confirmation pending",
+      "changelog": "Updated version prepared; save confirmation pending"
+    }
+  },
+  "application_architecture": {
+    "type": "Integrated modular application",
+    "approach": "Offline-first and local-first",
+    "interface": "Central dashboard",
+    "current_storage": [
+      "Browser localStorage"
+    ],
+    "planned_storage": [
+      "IndexedDB",
+      "Local filesystem where appropriate"
+    ],
+    "planned_offline_capabilities": [
+      "Service Worker",
+      "Offline application shell",
+      "Local data persistence",
+      "Data export",
+      "Backup and recovery"
+    ],
+    "important_distinction": "Planned capabilities must not be represented as implemented functionality.",
+    "development_rule": "Preserve the existing working application and improve it incrementally."
+  },
+  "functional_domains": {
+    "dashboard": [
+      "Central overview",
+      "Daily information",
+      "Quick access to projects and tools",
+      "Personalized information display"
+    ],
+    "daily_life": [
+      "Appointments",
+      "Planning",
+      "Tasks",
+      "Reminders",
+      "Daily administration"
+    ],
+    "communication": [
+      "Email overview",
+      "Communication management",
+      "Draft preparation",
+      "Approval-controlled sending"
+    ],
+    "knowledge_management": [
+      "Document management",
+      "Search and indexing",
+      "Knowledge archive",
+      "Certificate management",
+      "Expiration tracking"
+    ],
+    "projects": [
+      "Project management",
+      "Progress monitoring",
+      "Documentation",
+      "Research",
+      "Book writing"
+    ],
+    "health_and_wellbeing": {
+      "priority": "Equal functional domain",
+      "physical": [
+        "Food and hydration tracking",
+        "Movement and activity",
+        "Sleep and energy monitoring",
+        "Self-care",
+        "Medical notes"
+      ],
+      "mental_wellbeing": [
+        "Overstimulation management",
+        "Personal coping tools",
+        "Reflection and self-awareness",
+        "Rest and recovery support"
+      ],
+      "principle": "Supportive information and organization, not autonomous medical diagnosis or treatment."
+    },
+    "creative_and_community": [
+      "Writing and publications",
+      "Heal the World Project",
+      "AI Vision",
+      "Funsum",
+      "Community initiatives"
+    ],
+    "automation": [
+      "Repetitive task assistance",
+      "Information processing",
+      "Controlled workflows",
+      "Scheduled activities where authorized"
     ]
   },
-  "next_step": "Review the six starter files, correct assumptions, and agree on one small implementation step before any installation or system changes.",
-  "constraints": [
-    "Do not assume a provider, model, framework, or operating system integration has been chosen.",
-    "Do not install software, change settings, move or delete files, connect accounts, publish data, or spend money without explicit approval.",
-    "Do not put unnecessary sensitive personal information into project files.",
-    "Do not treat chat history or AI memory as the authoritative project record."
+  "ai_organization": {
+    "structure": [
+      {
+        "name": "Main Agent",
+        "role": "Central coordinator and primary assistant.",
+        "responsibilities": [
+          "Understand user requests",
+          "Coordinate specialist agents",
+          "Maintain project direction",
+          "Monitor overall progress"
+        ]
+      },
+      {
+        "name": "Specialist Agents",
+        "role": "Domain-specific assistance.",
+        "responsibilities": [
+          "Perform assigned specialist tasks",
+          "Use authorized tools",
+          "Return structured results to the Main Agent"
+        ]
+      },
+      {
+        "name": "Control Agent",
+        "role": "Safety and permission oversight.",
+        "responsibilities": [
+          "Check permissions",
+          "Monitor compliance with project rules",
+          "Identify risks",
+          "Prevent unauthorized consequential actions"
+        ]
+      },
+      {
+        "name": "Documentalist",
+        "role": "Documentation and knowledge continuity.",
+        "responsibilities": [
+          "Maintain project documentation",
+          "Record important decisions",
+          "Track changes",
+          "Support knowledge continuity across AI providers"
+        ]
+      }
+    ],
+    "implementation_status": "Planned",
+    "governance": {
+      "user_has_final_authority": true,
+      "approval_required_for_consequential_actions": true,
+      "agents_must_follow_permissions": true,
+      "agents_must_report_uncertainty": true,
+      "delegation_does_not_bypass_permissions": true
+    }
+  },
+  "technical_environment": {
+    "target_operating_system": "Windows 10 Pro",
+    "deployment_preference": "Local computer",
+    "development_approach": "Incremental and modular",
+    "preferred_technology": "Free and open-source where practical",
+    "local_ai": "Potential integration",
+    "external_ai": "Optional replaceable providers",
+    "repository": "GitHub"
+  },
+  "security_and_permissions": {
+    "default_autonomy_level": 0,
+    "default_rule": "AI may analyze, explain, prepare and propose. Consequential actions require explicit approval.",
+    "autonomy_levels": {
+      "level_0": "Explain and propose.",
+      "level_1": "Prepare reversible work when requested.",
+      "level_2": "Apply specific changes after explicit approval.",
+      "level_3": "Perform independent or recurring actions only under separately approved limits."
+    },
+    "explicit_approval_required_for": [
+      "Installing or uninstalling software",
+      "Changing system settings",
+      "Moving or renaming existing files",
+      "Deleting or overwriting files",
+      "Connecting external accounts",
+      "Sharing personal information",
+      "Sending emails or messages",
+      "Publishing content",
+      "Making payments or purchases",
+      "Starting subscriptions or paid APIs",
+      "Enabling autonomous external actions",
+      "Running potentially destructive commands"
+    ],
+    "data_rules": [
+      "Preserve original files.",
+      "Use backups before significant changes.",
+      "Never expose secrets or credentials in general project files.",
+      "Store only necessary personal information.",
+      "Keep data recoverable.",
+      "Document consequential changes."
+    ]
+  },
+  "backup": {
+    "directory": "backups/",
+    "directory_status": "Created and confirmed by Brigitte.",
+    "backup_implementation_status": "Not yet verified.",
+    "required_before_major_changes": true,
+    "original_files_must_remain_recoverable": true,
+    "backup_must_be_verified_before_claiming_success": true
+  },
+  "development_rules": [
+    "Do not restart the project from scratch without a clear reason.",
+    "Do not replace working components unnecessarily.",
+    "Do not execute the Python starter generator without explicit approval.",
+    "Do not assume proposed technical components are already installed.",
+    "Validate JSON files after changes.",
+    "Keep documentation synchronized.",
+    "Make one manageable change at a time.",
+    "Explain technical risks before implementation.",
+    "Prefer reversible changes.",
+    "Do not treat proposed functionality as implemented."
   ],
   "open_questions": [
-    "What should the first practical function of the AI hub be?",
-    "Which existing computer and software environment should be treated as the target when implementation begins?",
-    "Should the first version be only a portable documentation structure, a local dashboard, or a small local assistant?"
+    "Which existing software and development tools should be included in the technical inventory?",
+    "Which local storage and backup implementation best fits the existing dashboard?",
+    "Which AI orchestration approach will provide the best provider independence?",
+    "Which functionality should be implemented first after documentation alignment?"
   ],
   "parking_lot": [
-    "Potential use of local models and local tools.",
-    "Potential provider adapters so one AI service can be replaced by another.",
-    "Potential structured logging and automated consistency checks for Markdown and JSON.",
-    "Potential backup and version-control workflow."
-  ]
+    "Local AI models and inference engines.",
+    "Provider adapters.",
+    "Specialist agent integrations.",
+    "Automated documentation validation.",
+    "Structured logging.",
+    "Advanced backup and version control.",
+    "Additional external service integrations.",
+    "Dashboard personalization and advanced interface features."
+  ],
+  "next_step": {
+    "current_step": 6,
+    "total_steps": 6,
+    "action": "Complete documentation synchronization and verify consistency across all project records.",
+    "following_step": "Inspect the existing dashboard and local development environment.",
+    "documentation_sequence": [
+      "Create HUB_MANIFEST.json",
+      "Update AI_CONTEXT.json",
+      "Create ARCHITECTURE_CONTEXT.json",
+      "Update ARCHITECTURE.md",
+      "Update PROJECT_STATE.md",
+      "Review and synchronize remaining documentation"
+    ],
+    "completion_status": "In progress"
+  }
 }

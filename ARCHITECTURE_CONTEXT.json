@@ -1,0 +1,341 @@
+
+{
+  "schema_version": "1.0",
+  "project": "Brigitte Personal AI Hub",
+  "architecture_version": "1.0",
+  "last_updated": "2026-11-01",
+  "architecture_status": "target_architecture",
+  "design_objective": "One integrated, modular, offline-first personal AI application with replaceable AI providers and locally controlled data.",
+
+  "architecture_principles": [
+    "Single integrated application",
+    "Offline-first operation",
+    "Local-first data management",
+    "Modular and replaceable components",
+    "Provider and model independence",
+    "Privacy by design",
+    "Explicit user approval for consequential actions",
+    "Preservation of original files",
+    "Recoverable data storage",
+    "Open standards and portable formats"
+  ],
+
+  "system_overview": {
+    "primary_interface": "Central dashboard",
+    "deployment_target": "Local Windows computer",
+    "operating_system": "Windows 10 Pro",
+    "network_dependency": "Internet is optional for essential local functionality",
+    "application_model": "Integrated modular application",
+    "source_of_truth": "Local project and application data"
+  },
+
+  "application_layers": [
+    {
+      "id": "presentation",
+      "name": "Presentation Layer",
+      "status": "partially_implemented",
+      "responsibility": "Provide the central dashboard and user interface.",
+      "components": [
+        "Dashboard",
+        "Navigation",
+        "Widgets",
+        "Notifications",
+        "Settings",
+        "Module interfaces"
+      ],
+      "current_implementation": [
+        "dashboard.html"
+      ]
+    },
+    {
+      "id": "application",
+      "name": "Application Layer",
+      "status": "planned",
+      "responsibility": "Coordinate application functions and manage interactions between modules.",
+      "components": [
+        "Application controller",
+        "Module management",
+        "Task coordination",
+        "User preferences",
+        "Application state"
+      ]
+    },
+    {
+      "id": "orchestration",
+      "name": "AI Orchestration Layer",
+      "status": "planned",
+      "responsibility": "Coordinate AI requests, specialist agents and external tools.",
+      "components": [
+        "Main Agent",
+        "Specialist Agents",
+        "Control Agent",
+        "Documentalist",
+        "Task routing",
+        "Permission checks"
+      ]
+    },
+    {
+      "id": "integration",
+      "name": "Integration Layer",
+      "status": "planned",
+      "responsibility": "Connect replaceable AI providers, local models and authorized external services.",
+      "components": [
+        "Provider adapters",
+        "Local AI adapters",
+        "External service adapters",
+        "Tool interfaces",
+        "API communication"
+      ]
+    },
+    {
+      "id": "data",
+      "name": "Data Layer",
+      "status": "partially_implemented",
+      "responsibility": "Store, retrieve, organize and protect application data.",
+      "current_implementation": [
+        "Browser localStorage"
+      ],
+      "planned_components": [
+        "IndexedDB",
+        "Local filesystem integration",
+        "Structured configuration files",
+        "Application database",
+        "Search index",
+        "Backup and recovery"
+      ]
+    },
+    {
+      "id": "security",
+      "name": "Security and Permission Layer",
+      "status": "rules_defined_implementation_pending",
+      "responsibility": "Enforce user permissions, data protection and approval requirements.",
+      "components": [
+        "Permission management",
+        "Action approval",
+        "Access control",
+        "Audit logging",
+        "Data protection"
+      ]
+    }
+  ],
+
+  "ai_agent_architecture": {
+    "coordination_model": "Central coordination with delegated specialist tasks",
+    "agents": [
+      {
+        "id": "main_agent",
+        "name": "Main Agent",
+        "responsibility": "Understand requests, coordinate agents and maintain overall task direction."
+      },
+      {
+        "id": "specialist_agents",
+        "name": "Specialist Agents",
+        "responsibility": "Perform defined tasks within authorized functional domains."
+      },
+      {
+        "id": "control_agent",
+        "name": "Control Agent",
+        "responsibility": "Check permissions, security, consistency and compliance."
+      },
+      {
+        "id": "documentalist",
+        "name": "Documentalist",
+        "responsibility": "Maintain documentation, decisions and knowledge continuity."
+      }
+    ],
+    "rules": [
+      "Agents operate only within assigned permissions.",
+      "Agents must report uncertainty.",
+      "Agents must not silently expand their authority.",
+      "Consequential actions require explicit user approval.",
+      "The user retains final decision-making authority."
+    ]
+  },
+
+  "functional_modules": [
+    {
+      "id": "dashboard",
+      "name": "Personal Dashboard",
+      "purpose": "Provide one central overview of daily information and activities."
+    },
+    {
+      "id": "daily_management",
+      "name": "Daily Management",
+      "purpose": "Organize appointments, tasks, reminders and planning."
+    },
+    {
+      "id": "communication",
+      "name": "Communication",
+      "purpose": "Support email and other communication workflows with approval-controlled external actions."
+    },
+    {
+      "id": "knowledge",
+      "name": "Knowledge Management",
+      "purpose": "Organize, search and retrieve documents, knowledge and certificates."
+    },
+    {
+      "id": "projects",
+      "name": "Project Management",
+      "purpose": "Manage projects, progress, research and documentation."
+    },
+    {
+      "id": "health_wellbeing",
+      "name": "Health and Wellbeing",
+      "purpose": "Support physical wellbeing, sleep, energy, self-care and mental wellbeing."
+    },
+    {
+      "id": "creative",
+      "name": "Creative Work",
+      "purpose": "Support writing, publications and creative projects."
+    },
+    {
+      "id": "community",
+      "name": "Community Initiatives",
+      "purpose": "Support Heal the World Project, AI Vision and Funsum."
+    },
+    {
+      "id": "automation",
+      "name": "Automation",
+      "purpose": "Reduce repetitive work through controlled and approved workflows."
+    }
+  ],
+
+  "storage_architecture": {
+    "strategy": "Local-first with offline availability",
+    "current_storage": {
+      "technology": "localStorage",
+      "location": "Browser storage",
+      "limitations": [
+        "Browser-specific storage",
+        "Limited structured querying",
+        "No automatic backup guarantee",
+        "Storage can be cleared by the browser or user"
+      ]
+    },
+    "planned_storage": {
+      "primary_structured_storage": "IndexedDB",
+      "file_storage": "Local filesystem where appropriate",
+      "configuration": "JSON",
+      "documentation": "Markdown",
+      "backup": "Separate recoverable backup copies"
+    },
+    "data_rules": [
+      "Preserve original source files.",
+      "Avoid unnecessary duplicate storage.",
+      "Document data ownership and location.",
+      "Provide export and recovery mechanisms.",
+      "Do not rely on browser storage as the only permanent backup."
+    ]
+  },
+
+  "offline_architecture": {
+    "goal": "Essential application functionality remains available without an internet connection.",
+    "planned_components": [
+      "Service Worker",
+      "Offline application shell",
+      "Local data storage",
+      "Local module execution",
+      "Data export",
+      "Backup and recovery"
+    ],
+    "internet_dependent_features": [
+      "Cloud AI providers",
+      "External APIs",
+      "Online account integrations",
+      "Remote synchronization"
+    ],
+    "rule": "Internet-dependent features must not prevent essential local functionality from working."
+  },
+
+  "security_architecture": {
+    "default_permission": "read_only",
+    "approval_required_for": [
+      "Sending messages",
+      "Publishing content",
+      "Sharing personal data",
+      "Installing software",
+      "Changing system settings",
+      "Moving files",
+      "Deleting files",
+      "Overwriting original files",
+      "Payments and subscriptions",
+      "External account connections",
+      "Autonomous external actions"
+    ],
+    "security_requirements": [
+      "Explicit permission checks",
+      "Data minimization",
+      "Secure credential handling",
+      "Action logging",
+      "Recoverable changes",
+      "Separation of agent responsibilities"
+    ]
+  },
+
+  "communication_between_components": {
+    "principle": "Use defined interfaces and structured data contracts.",
+    "planned_formats": [
+      "JSON",
+      "HTTP APIs where appropriate",
+      "Local function interfaces",
+      "Documented tool interfaces"
+    ],
+    "requirements": [
+      "Validate inputs.",
+      "Handle errors explicitly.",
+      "Avoid unnecessary dependencies.",
+      "Keep provider-specific implementations isolated.",
+      "Prevent unauthorized access between modules."
+    ]
+  },
+
+  "development_strategy": {
+    "approach": "Incremental development",
+    "rules": [
+      "Preserve existing working components.",
+      "Avoid rebuilding from scratch without justification.",
+      "Build and test one manageable component at a time.",
+      "Validate data formats.",
+      "Document technical decisions.",
+      "Maintain backups before significant changes.",
+      "Avoid paid dependencies without approval."
+    ],
+    "current_phase": "Documentation alignment",
+    "next_phase": "Technical inventory and architecture verification"
+  },
+
+  "technical_decisions": {
+    "confirmed": [
+      "One integrated application",
+      "Offline-first direction",
+      "Local-first data management",
+      "Provider-independent design",
+      "Modular architecture",
+      "Human approval for consequential actions",
+      "Preservation of existing application work"
+    ],
+    "proposed": [
+      "IndexedDB for structured browser-side storage",
+      "Service Worker for offline application functionality",
+      "Local filesystem integration where appropriate",
+      "Replaceable AI provider adapters"
+    ],
+    "not_yet_decided": [
+      "Final application framework",
+      "Final backend implementation",
+      "AI orchestration framework",
+      "Local model selection",
+      "Database implementation beyond current browser storage",
+      "Synchronization strategy",
+      "Final backup implementation"
+    ]
+  },
+
+  "next_actions": [
+    "Complete documentation alignment.",
+    "Inspect existing dashboard implementation.",
+    "Inventory installed software and available development tools.",
+    "Verify the proposed architecture against the actual computer environment.",
+    "Define the first implementation milestone."
+  ]
+}

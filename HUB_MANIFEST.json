@@ -1,0 +1,154 @@
+{
+  "manifest_version": "1.1.0",
+  "project": {
+    "name": "Brigitte Personal AI Hub",
+    "short_name": "BPAH",
+    "description": "A personal, integrated, local-first and offline-first AI hub for daily life, knowledge management, projects, wellbeing and intelligent automation.",
+    "owner": "Brigitte Schrijvers",
+    "organization": "AI Vision",
+    "repository": "AI-Vision-Official/Brigitte_Personal_AI_Hub",
+    "project_status": "initial_development",
+    "project_started": "2026-10-28"
+  },
+  "identity": {
+    "primary_goal": "Create one integrated personal AI environment that combines daily tools, knowledge, projects, wellbeing and AI assistance.",
+    "core_principles": [
+      "Offline-first",
+      "Local-first",
+      "Privacy by design",
+      "Provider and model independence",
+      "Modular architecture",
+      "Open-source preference",
+      "User control and explicit consent",
+      "Data integrity and recoverability",
+      "Accessibility and simplicity",
+      "Human approval for consequential actions"
+    ],
+    "operating_system": "Windows 10 Pro",
+    "preferred_deployment": "Local computer",
+    "external_dependencies": "Optional and replaceable"
+  },
+  "documentation": {
+    "project_start": "00_PROJECT_START.md",
+    "manifest": "HUB_MANIFEST.json",
+    "ai_context": "AI_CONTEXT.json",
+    "architecture": "ARCHITECTURE.md",
+    "architecture_context": "ARCHITECTURE_CONTEXT.json",
+    "project_state": "PROJECT_STATE.md",
+    "rules_and_permissions": "RULES_AND_PERMISSIONS.md",
+    "changelog": "CHANGELOG.md"
+  },
+  "application": {
+    "dashboard": "dashboard.html",
+    "dashboard_status": "initial_implementation",
+    "python_generator": "Brigitte_Personal_AI_Hub.py",
+    "python_generator_status": "present_but_not_authorized_for_execution",
+    "current_dashboard_storage": "localStorage",
+    "target_storage": [
+      "IndexedDB",
+      "Local filesystem where appropriate"
+    ],
+    "target_offline_capabilities": [
+      "Service Worker",
+      "Offline application shell",
+      "Local data storage",
+      "Data export and recovery"
+    ],
+    "implementation_note": "The complete application and target offline architecture have not yet been implemented."
+  },
+  "ai_organization": {
+    "structure": [
+      {
+        "role": "Main Agent",
+        "responsibility": "Coordinate the hub and manage the overall workflow."
+      },
+      {
+        "role": "Specialist Agents",
+        "responsibility": "Perform specific tasks within their assigned domains."
+      },
+      {
+        "role": "Control Agent",
+        "responsibility": "Check permissions, safety, consistency and compliance."
+      },
+      {
+        "role": "Documentalist",
+        "responsibility": "Maintain documentation, project history and knowledge continuity."
+      }
+    ],
+    "implementation_status": "planned",
+    "human_approval_required": true
+  },
+  "functional_domains": [
+    "Personal dashboard",
+    "Daily planning and appointments",
+    "Email and communication",
+    "Knowledge and document management",
+    "Certificates and expiration tracking",
+    "Projects and task management",
+    "Health and wellbeing",
+    "Creative work and book writing",
+    "Community initiatives",
+    "AI agents and automation"
+  ],
+  "security": {
+    "default_autonomy_level": 0,
+    "default_rule": "AI may analyze, explain, prepare and propose. Consequential actions require explicit approval.",
+    "approval_required_for": [
+      "Sending emails or messages",
+      "Publishing content",
+      "Sharing personal data",
+      "Installing or uninstalling software",
+      "Making payments or purchases",
+      "Starting subscriptions or paid API usage",
+      "Deleting files",
+      "Moving, renaming or overwriting files",
+      "Changing system settings",
+      "Connecting accounts or granting permissions",
+      "Enabling independent automation",
+      "Executing potentially destructive commands"
+    ],
+    "original_files_must_be_preserved": true,
+    "backups_required_before_destructive_changes": true,
+    "agents_must_not_expand_their_own_permissions": true
+  },
+  "development": {
+    "development_approach": "Incremental and modular",
+    "source_of_truth": "Local project files and explicitly approved data sources",
+    "existing_components_must_be_preserved": true,
+    "no_unapproved_replacements": true,
+    "open_source_preferred": true,
+    "cost_policy": "Prefer free and locally runnable solutions. No paid services or subscriptions without explicit approval.",
+    "first_implementation_use_case": "not_yet_selected",
+    "development_environment_changes_require_approval": true
+  },
+  "backup": {
+    "implementation_status": "not_yet_verified",
+    "proposed_directory": "backups/",
+    "required_before_major_changes": true,
+    "original_files_must_remain_recoverable": true,
+    "backup_must_be_verified_before_claiming_success": true
+  },
+  "current_documentation_phase": {
+    "phase": "Documentation synchronization",
+    "current_step": 6,
+    "total_steps": 6,
+    "next_action": "Verify AI_CONTEXT.json and ARCHITECTURE_CONTEXT.json, then confirm consistency across all project documentation.",
+    "sequence": [
+      "Create HUB_MANIFEST.json",
+      "Update AI_CONTEXT.json",
+      "Create ARCHITECTURE_CONTEXT.json",
+      "Update ARCHITECTURE.md",
+      "Update PROJECT_STATE.md",
+      "Review and synchronize remaining documentation"
+    ],
+    "completion_status": "in_progress"
+  },
+  "governance": {
+    "project_owner_has_final_authority": true,
+    "ai_must_not_invent_project_decisions": true,
+    "uncertainties_must_be_identified": true,
+    "changes_must_be_documented": true,
+    "approval_is_action_specific": true,
+    "delegation_does_not_bypass_permissions": true
+  }
+}
