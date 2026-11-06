@@ -1,0 +1,16 @@
+{
+  "config_version": "1.0",
+  "allowed_roots": [
+    "J:\\GIT\\PROJECTS\\Brigitte_Personal_AI_Hub"
+  ],
+  "output_dir": "J:\\GIT\\PROJECTS\\Brigitte_Personal_AI_Hub_data\\scan_results",
+  "projects": [
+    {
+      "id": "hub",
+      "name": "Brigitte Personal AI Hub",
+      "path": "J:\\GIT\\PROJECTS\\Brigitte_Personal_AI_Hub",
+      "enabled": true,
+      "tags": ["hub"]
+    }
+  ]
+}
